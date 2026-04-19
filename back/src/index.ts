@@ -1,5 +1,6 @@
 // Main Application Entry Point
 import express from 'express';
+import cors from 'cors';
 import { pool } from './infrastructure/database/PostgresConnection.js';
 import { PostgresTaskRepository } from './infrastructure/repositories/PostgresTaskRepository.js';
 import { CreateTaskUseCase } from './application/use-cases/CreateTaskUseCase.js';
@@ -11,6 +12,11 @@ const PORT = process.env.PORT || 3001;
 
 // Middleware
 app.use(express.json());
+app.use(cors({
+  origin: process.env.CORS_ORIGIN || '*',
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+}));
 
 // Dependency Injection Container
 const taskRepository = new PostgresTaskRepository(pool);
