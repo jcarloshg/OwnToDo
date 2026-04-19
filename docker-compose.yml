@@ -1,0 +1,61 @@
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: taskflow-db
+    environment:
+      POSTGRES_DB: taskflow
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./db/01.schema.sql:/docker-entrypoint-initdb.d/01.schema.sql:ro
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres -d taskflow" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  back:
+    build:
+      context: ./back
+      dockerfile: Dockerfile
+    container_name: taskflow-back
+    environment:
+      NODE_ENV: development
+      PORT: 3001
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_NAME: taskflow
+      DB_USER: postgres
+      DB_PASSWORD: postgres
+    ports:
+      - "3001:3001"
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - ./back/src:/app/src:ro
+      - ./back/test:/app/test:ro
+    command: npm run dev
+
+  front:
+    build:
+      context: ./front
+      dockerfile: Dockerfile
+    container_name: taskflow-front
+    environment:
+      NODE_ENV: development
+      NEXT_PUBLIC_API_URL: http://localhost:3001
+    ports:
+      - "3000:3000"
+    depends_on:
+      - back
+    volumes:
+      - ./front/src:/app/src:ro
+      - ./front/test:/app/test:ro
+    command: npm run dev
+
+volumes:
+  postgres_data:
