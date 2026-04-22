@@ -3,9 +3,12 @@
 @theme {
   --color-primary: #0477BF;
   --color-primary-light: #7AB3BF;
+  --color-primary-lighter: #B5D4E0;
   --color-accent: #D97A07;
+  --color-accent-light: #F5B86C;
   --color-danger: #D90404;
   --color-danger-dark: #590202;
+  --color-success: #059669;
 }
 
 @layer base {
@@ -14,33 +17,70 @@
   }
 
   body {
-    @apply bg-gray-50 text-gray-900;
+    @apply bg-gradient-to-br from-primary-lighter/30 via-gray-50 to-accent-light/20 min-h-screen;
   }
 }
 
 @layer components {
   .btn-primary {
-    @apply bg-primary text-white px-6 py-3 rounded-lg font-medium transition-colors hover:bg-primary/90;
+    @apply bg-primary text-white px-6 py-3 rounded-xl font-semibold transition-all duration-200 hover:bg-primary/90 hover:shadow-lg hover:shadow-primary/30 active:scale-95;
   }
 
   .btn-accent {
-    @apply bg-accent text-white px-6 py-3 rounded-lg font-semibold transition-all hover:bg-accent/90;
+    @apply bg-accent text-white px-6 py-3 rounded-xl font-semibold transition-all duration-200 hover:bg-accent/90 hover:shadow-lg hover:shadow-accent/30 active:scale-95;
   }
 
   .form-input {
-    @apply w-full px-4 py-3 border border-gray-300 rounded-lg outline-none transition-all;
-    @apply focus:ring-2 focus:ring-primary focus:border-primary;
+    @apply w-full px-4 py-3 border-2 border-primary-lighter rounded-xl outline-none transition-all duration-200;
+    @apply focus:ring-3 focus:ring-primary/20 focus:border-primary focus:bg-primary-lighter/10;
   }
 
   .form-label {
-    @apply block text-sm font-semibold text-gray-700 mb-2;
+    @apply block text-sm font-bold text-primary mb-2;
   }
 
   .card {
-    @apply bg-white rounded-xl shadow-lg border border-gray-100 p-8;
+    @apply bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl border border-primary-lighter/50 p-8;
+    @apply transition-all duration-300 hover:shadow-2xl hover:shadow-primary/10;
   }
 
   .error-badge {
-    @apply bg-danger/10 border border-danger text-danger rounded-lg p-4 flex items-center gap-3;
+    @apply bg-danger/10 border-2 border-danger/30 text-danger rounded-xl p-4 flex items-center gap-3 font-medium;
+  }
+
+  .success-badge {
+    @apply bg-success/10 border-2 border-success/30 text-success rounded-xl p-4 flex items-center gap-3 font-medium;
+  }
+
+  .status-badge {
+    @apply px-4 py-1.5 rounded-full text-sm font-semibold;
+  }
+
+  .status-completed {
+    @apply bg-success/20 text-success;
+  }
+
+  .status-pending {
+    @apply bg-accent/20 text-accent;
+  }
+
+  /* Gradient text utility */
+  .gradient-text {
+    @apply bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent;
+  }
+
+  /* Input range slider styling */
+  input[type="range"] {
+    @apply accent-primary;
+  }
+
+  /* Link styling */
+  a {
+    @apply transition-colors duration-200;
+  }
+
+  /* Hover card effect */
+  .hover-lift {
+    @apply transition-all duration-300 hover:-translate-y-1 hover:shadow-xl;
   }
 }

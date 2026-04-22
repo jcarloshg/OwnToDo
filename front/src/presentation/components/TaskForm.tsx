@@ -35,18 +35,16 @@ export function TaskForm({ userId }: TaskFormProps) {
 
   if (success) {
     return (
-      <div className="card bg-primary-light/10 border-primary text-center">
-        <div className="w-16 h-16 bg-primary rounded-full flex items-center justify-center mx-auto mb-4">
-          <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-          </svg>
+      <div className="card text-center py-16">
+        <div className="w-24 h-24 bg-primary rounded-full flex items-center justify-center mx-auto mb-8 shadow-lg shadow-primary/40">
+          <span className="text-4xl text-white">✓</span>
         </div>
-        <h3 className="text-xl font-semibold text-primary mb-2">Task Created!</h3>
-        <p className="text-gray-600 mb-6">Your task has been successfully added.</p>
+        <h3 className="text-3xl font-bold text-primary mb-4">Task Created!</h3>
+        <p className="text-gray-500 text-lg mb-8">Your task has been successfully added.</p>
         <button
           onClick={reset}
           type="button"
-          className="btn-primary"
+          className="btn-primary text-lg px-10 py-4"
         >
           Create Another Task
         </button>
@@ -55,19 +53,17 @@ export function TaskForm({ userId }: TaskFormProps) {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="card" aria-label="Create task form">
-      <h2 className="text-2xl font-bold text-primary mb-6">Create New Task</h2>
+    <form onSubmit={handleSubmit} className="card max-w-2xl mx-auto" aria-label="Create task form">
+      <h2 className="text-3xl font-extrabold text-primary mb-8 text-center">Create New Task</h2>
 
       {error && (
-        <div className="error-badge mb-6" role="alert">
-          <svg className="w-5 h-5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
-            <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
-          </svg>
-          <span>{error}</span>
+        <div className="error-badge mb-8" role="alert">
+          <span className="text-xl">⚠️</span>
+          <span className="font-medium">{error}</span>
         </div>
       )}
 
-      <div className="space-y-5">
+      <div className="space-y-6">
         {/* Title */}
         <div>
           <label htmlFor="title" className="form-label">
@@ -78,11 +74,11 @@ export function TaskForm({ userId }: TaskFormProps) {
             type="text"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
-            placeholder="Enter task title"
+            placeholder="What needs to be done?"
             maxLength={200}
             required
             aria-required="true"
-            className="form-input"
+            className="form-input text-lg py-4"
           />
         </div>
 
@@ -95,16 +91,16 @@ export function TaskForm({ userId }: TaskFormProps) {
             id="description"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
-            placeholder="Enter task description (optional)"
+            placeholder="Add some details about this task (optional)"
             maxLength={2000}
-            rows={3}
-            className="form-input resize-none"
+            rows={4}
+            className="form-input resize-none text-lg py-4"
           />
         </div>
 
-        <div className="grid grid-cols-2 gap-5">
+        <div className="grid md:grid-cols-2 gap-8">
           {/* Effort Points */}
-          <div>
+          <div className="bg-primary/5 rounded-2xl p-6">
             <label htmlFor="effortPoints" className="form-label">
               Effort Points <span className="text-danger" aria-hidden="true">*</span>
             </label>
@@ -115,20 +111,20 @@ export function TaskForm({ userId }: TaskFormProps) {
               onChange={(e) => setEffortPoints(parseInt(e.target.value, 10))}
               min={1}
               max={100}
-              className="w-full h-3 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-primary"
+              className="w-full h-3 bg-primary/20 rounded-lg appearance-none cursor-pointer accent-primary"
               aria-valuemin={1}
               aria-valuemax={100}
               aria-valuenow={effortPoints}
             />
-            <div className="flex justify-between mt-1 text-xs text-gray-500">
-              <span>1</span>
-              <span className="font-bold text-primary">{effortPoints}</span>
-              <span>100</span>
+            <div className="flex justify-between mt-3 text-sm text-gray-600 font-medium">
+              <span>Easy</span>
+              <span className="text-2xl font-extrabold text-primary">{effortPoints}</span>
+              <span>Hard</span>
             </div>
           </div>
 
           {/* Due Date */}
-          <div>
+          <div className="bg-accent/5 rounded-2xl p-6">
             <label htmlFor="dueDate" className="form-label">
               Due Date
             </label>
@@ -137,7 +133,7 @@ export function TaskForm({ userId }: TaskFormProps) {
               type="date"
               value={dueDate}
               onChange={(e) => setDueDate(e.target.value)}
-              className="form-input"
+              className="form-input text-lg py-4"
             />
           </div>
         </div>
@@ -146,25 +142,10 @@ export function TaskForm({ userId }: TaskFormProps) {
       <button
         type="submit"
         disabled={isLoading}
-        className="w-full mt-8 btn-accent disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+        className="w-full mt-10 btn-accent text-lg py-4 shadow-lg shadow-accent/30 disabled:opacity-50 disabled:cursor-not-allowed"
         aria-busy={isLoading}
       >
-        {isLoading ? (
-          <>
-            <svg className="animate-spin h-5 w-5" viewBox="0 0 24 24" aria-hidden="true">
-              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
-              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
-            </svg>
-            <span>Creating...</span>
-          </>
-        ) : (
-          <>
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
-            </svg>
-            <span>Save Task</span>
-          </>
-        )}
+        {isLoading ? 'Creating...' : '+ Save Task'}
       </button>
     </form>
   );
