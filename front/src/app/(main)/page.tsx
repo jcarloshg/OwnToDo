@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import { CustomLink } from '@/presentation/components';
 
 export default function LandingPage() {
   return (
@@ -24,12 +24,12 @@ export default function LandingPage() {
               Boost productivity and never miss a deadline again.
             </p>
             <div className="flex flex-col sm:flex-row gap-6 justify-center">
-              <Link href="/tasks" className="btn-primary text-lg px-10 py-4 shadow-lg shadow-primary/30">
+              <CustomLink href="/tasks" variant="primary" size="lg">
                 ☰ Get Started
-              </Link>
-              <Link href="/tasks/new" className="btn-accent text-lg px-10 py-4 shadow-lg shadow-accent/30">
+              </CustomLink>
+              <CustomLink href="/tasks/new" variant="secondary" size="lg">
                 + Create Task
-              </Link>
+              </CustomLink>
             </div>
           </div>
         </div>
@@ -115,9 +115,9 @@ export default function LandingPage() {
           <p className="text-gray-500 text-lg mb-12">
             Join thousands of users who have transformed their task management with TaskFlow.
           </p>
-          <Link href="/tasks/new" className="btn-accent text-lg px-12 py-5 shadow-lg shadow-accent/30">
+          <CustomLink href="/tasks/new" variant="secondary" size="lg">
             + Create Your First Task
-          </Link>
+          </CustomLink>
         </div>
       </section>
 
@@ -129,12 +129,12 @@ export default function LandingPage() {
             <span className="text-accent">.</span>
           </div>
           <div className="flex items-center gap-8">
-            <Link href="/tasks" className="hover:text-primary transition-colors font-medium">
+            <CustomLink href="/tasks" variant="link" size="md" className="transition-colors font-medium">
               Tasks
-            </Link>
-            <Link href="/tasks/new" className="hover:text-primary transition-colors font-medium">
+            </CustomLink>
+            <CustomLink href="/tasks/new" variant="link" size="md" className="transition-colors font-medium">
               New Task
-            </Link>
+            </CustomLink>
           </div>
         </div>
       </footer>

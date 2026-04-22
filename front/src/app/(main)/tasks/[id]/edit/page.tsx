@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import { CustomLink } from '@/presentation/components';
 
 interface PageProps {
   params: Promise<{ id: string }>;
@@ -10,9 +10,9 @@ export default async function EditTaskPage({ params }: PageProps) {
   return (
     <div className="max-w-3xl mx-auto">
       <div className="mb-8">
-        <Link href={`/tasks/${id}`} className="text-primary hover:text-primary/80 font-medium flex items-center gap-2 transition-colors">
+        <CustomLink href={`/tasks/${id}`} variant="link" size="md" className="font-medium flex items-center gap-2">
           ← Back to task
-        </Link>
+        </CustomLink>
       </div>
       <div className="card">
         <h2 className="text-3xl font-extrabold text-primary mb-6">Edit Task</h2>

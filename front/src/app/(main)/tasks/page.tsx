@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import { CustomLink } from '@/presentation/components';
 import { getTasks } from '@/infrastructure/api/taskApi';
 
 const DEMO_USER_ID = '00000000-0000-0000-0000-000000000000';
@@ -15,12 +15,13 @@ export default async function TasksPage() {
     <div className="max-w-4xl mx-auto">
       <div className="flex justify-between items-center mb-10">
         <h2 className="text-4xl font-extrabold text-gray-800">Your Tasks</h2>
-        <Link
+        <CustomLink
           href="/tasks/new"
-          className="btn-primary text-lg px-8 py-4 shadow-lg shadow-primary/30"
+          variant="primary"
+          size="md"
         >
           + New Task
-        </Link>
+        </CustomLink>
       </div>
 
       {tasks.length === 0 ? (
@@ -29,16 +30,18 @@ export default async function TasksPage() {
             <span className="text-4xl">📋</span>
           </div>
           <p className="text-gray-500 text-lg mb-6">No tasks yet</p>
-          <Link href="/tasks/new" className="btn-accent inline-flex px-8 py-3">
+          <CustomLink href="/tasks/new" variant="secondary" size="md">
             Create your first task
-          </Link>
+          </CustomLink>
         </div>
       ) : (
         <ul className="space-y-5">
           {tasks.map((task) => (
             <li key={task.id}>
-              <Link
+              <CustomLink
                 href={`/tasks/${task.id}`}
+                variant="third"
+                size="md"
                 className="card block hover-lift"
               >
                 <div className="flex justify-between items-start">
@@ -68,7 +71,7 @@ export default async function TasksPage() {
                     </span>
                   )}
                 </div>
-              </Link>
+              </CustomLink>
             </li>
           ))}
         </ul>

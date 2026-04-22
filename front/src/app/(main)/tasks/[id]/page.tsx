@@ -1,3 +1,5 @@
+import { CustomLink } from '@/presentation/components';
+
 interface PageProps {
   params: Promise<{ id: string }>;
 }
@@ -8,9 +10,9 @@ export default async function TaskDetailPage({ params }: PageProps) {
   return (
     <div className="max-w-3xl mx-auto">
       <div className="mb-8">
-        <a href="/tasks" className="text-primary hover:text-primary/80 font-medium flex items-center gap-2 transition-colors">
+        <CustomLink href="/tasks" variant="link" size="md" className="font-medium flex items-center gap-2">
           ← Back to tasks
-        </a>
+        </CustomLink>
       </div>
       <div className="card">
         <h2 className="text-3xl font-extrabold text-primary mb-6">Task Details</h2>
